@@ -7,6 +7,8 @@ Suri AI is a smart website checker currently under development.
 
 Note: This project is still in progress and may provide inaccurate information.
 
+🔗 Visit & Try Out Here: https://tarravictor.github.io/SuriAI/
+
 Contact
 -------
 Developer: Victor Tarra
