@@ -449,6 +449,127 @@
     </div>
   </main>
 
+  <aside class="disclaimer-banner" role="note" aria-label="Disclaimer">
+    <div class="disclaimer-banner-content">
+      <svg width="22" height="22" fill="none" stroke="#4f8ff7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="13" />
+        <circle cx="12" cy="16" r="1.2" />
+      </svg>
+      <div>
+        <strong>Disclaimer:</strong>
+        <span>
+          SuriAI is in <span class="disclaimer-phase">Pre-Alpha</span>. Results may be incomplete or inaccurate.
+          <br>
+          <span class="disclaimer-version">Version 2.0</span> launches <b>June 8, 2025</b>.
+        </span>
+      </div>
+    </div>
+  </aside>
+  <style>
+    .disclaimer-banner {
+      position: fixed;
+      top: 90px;
+      right: 32px;
+      width: 340px;
+      max-width: 90vw;
+      background: linear-gradient(90deg, #e3f0ff 60%, #f0f7ff 100%);
+      border-left: 5px solid #4f8ff7;
+      border-radius: 0.7rem;
+      box-shadow: 0 2px 16px rgba(79,143,247,0.09);
+      color: #174a7c;
+      font-size: 1rem;
+      padding: 1rem 1.2rem;
+      z-index: 1100;
+      animation: disclaimer-slide-in-right 0.8s cubic-bezier(.4,1.4,.6,1) 0.1s both;
+      transition: all 0.4s cubic-bezier(.4,1.4,.6,1);
+    }
+    @keyframes disclaimer-slide-in-right {
+      from {
+        opacity: 0;
+        transform: translateX(60px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+    .disclaimer-banner-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+    .disclaimer-banner svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      animation: disclaimer-icon-bounce 1.2s infinite alternate cubic-bezier(.6,1.5,.6,1);
+    }
+    @keyframes disclaimer-icon-bounce {
+      from { transform: translateY(0);}
+      to { transform: translateY(-6px);}
+    }
+    .disclaimer-phase {
+      background: #fffde4;
+      color: #b28704;
+      padding: 0 0.3em;
+      border-radius: 0.3em;
+      font-weight: 600;
+      margin: 0 0.2em;
+      animation: disclaimer-phase-fade 2s infinite alternate;
+    }
+    @keyframes disclaimer-phase-fade {
+      from { background: #fffde4; }
+      to { background: #fff7b2; }
+    }
+    .disclaimer-version {
+      color: #2360a5;
+      font-weight: 600;
+      margin-right: 0.2em;
+      animation: disclaimer-version-pulse 1.5s infinite alternate;
+    }
+    @keyframes disclaimer-version-pulse {
+      from { color: #2360a5; }
+      to { color: #4f8ff7; }
+    }
+    @media (max-width: 900px) {
+      .disclaimer-banner {
+        right: 10px;
+        width: 97vw;
+        max-width: 97vw;
+        padding: 0.9rem 0.7rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .disclaimer-banner {
+        top: unset !important;
+        bottom: 12px !important;
+        left: 50% !important;
+        right: unset !important;
+        transform: translateX(-50%) !important;
+        width: 98vw !important;
+        max-width: 98vw !important;
+        font-size: 0.98rem;
+        margin: 0;
+        padding: 0.8rem 0.5rem;
+        border-radius: 0.5rem;
+        animation: disclaimer-slide-in-bottom 0.7s cubic-bezier(.4,1.4,.6,1) 0.1s both;
+      }
+      @keyframes disclaimer-slide-in-bottom {
+        from {
+          opacity: 0;
+          transform: translateY(40px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .disclaimer-banner-content {
+        gap: 0.6rem;
+      }
+    }
+  </style>
+
   <footer>
     <p>© 2025 SuriAI by Victor Tarra. All rights reserved.</p>
   </footer>
