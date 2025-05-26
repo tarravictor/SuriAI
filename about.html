@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About - SuriAI</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    /* Global Reset & Box Sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #cce4ffcc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden; /* Prevents horizontal scroll */
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0; /* Ensure it spans full width */
+      right: 0; /* Ensure it spans full width */
+      height: 56px;
+      background: rgba(30, 60, 114, 0.95);
+      backdrop-filter: saturate(180%) blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      z-index: 999;
+      user-select: none;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: #4f8ff7;
+      cursor: default;
+      text-shadow: 0 0 8px #4f8ff7bb;
+    }
+
+    nav a {
+      color: #cce4ffcc;
+      text-decoration: none;
+      margin-left: 1.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a:first-child {
+      margin-left: 0;
+    }
+
+    nav a:hover, nav a:focus {
+      color: #80a9ff;
+      outline: none;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #4f8ff7;
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
+    }
+
+    nav a[aria-current="page"] {
+      color: #4f8ff7;
+      font-weight: 700;
+    }
+
+    nav a[aria-current="page"]::after {
+      width: 100%;
+      background: #4f8ff7;
+    }
+
+    main {
+      margin: 80px auto 3rem auto; /* 80px top margin to clear fixed header */
+      width: 90%; /* Use percentage for better fluidity */
+      max-width: 620px; /* Keep max-width for readability */
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 1rem;
+      box-shadow:
+        0 0 10px rgb(0 0 0 / 0.1),
+        0 8px 32px rgb(0 0 0 / 0.4);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255 255 255 / 0.2);
+      padding: 2rem 2.5rem;
+      color: #cce4ffdd;
+      user-select: text;
+      font-weight: 400;
+      font-size: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.75rem;
+    }
+
+    main h1 {
+      margin-top: 0;
+      font-weight: 700;
+      font-size: 2.25rem;
+      color: #4f8ff7;
+      user-select: none;
+      text-shadow: 0 0 8px #4f8ff7bb;
+    }
+
+    main p {
+      max-width: 100%;
+      margin: 0; /* Removed auto margins as main is centered */
+      font-size: 1.1rem;
+      color: #cce4ffcc;
+    }
+
+    .developer-photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #4f8ff7cc;
+      box-shadow: 0 0 15px #4f8ff7bb;
+      user-select: none;
+    }
+
+    footer {
+      margin-top: auto; /* Pushes footer to the bottom */
+      height: 3rem;
+      background: rgba(255 255 255 / 0.1);
+      backdrop-filter: blur(10px);
+      color: #cce4ffcc;
+      font-weight: 500;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255 255 255 / 0.15);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+      width: 100%; /* Ensure footer spans full width */
+    }
+
+    footer a {
+      color: #7ea9ff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.3rem;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #cce4ff;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      header {
+        padding: 0 1rem;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+        margin-left: 1rem;
+      }
+
+      main {
+        margin: 70px auto 2rem auto; /* Adjusted top margin for smaller screens */
+        padding: 1.5rem 1.75rem;
+        width: 90%; /* Ensure it doesn't hit edges */
+        max-width: 100%; /* Allow it to use available width */
+        font-size: 1rem; /* Slightly smaller font */
+      }
+
+      main h1 {
+        font-size: 1.8rem; /* Adjust h1 size */
+      }
+
+      main p {
+        font-size: 1rem;
+      }
+
+      .developer-photo {
+        width: 110px; /* Slightly smaller photo */
+        height: 110px;
+      }
+
+      footer {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+        .logo {
+            font-size: 1.2rem;
+        }
+        nav a {
+            font-size: 0.85rem;
+            margin-left: 0.8rem;
+        }
+        main h1 {
+           font-size: 1.6rem;
+        }
+        main p {
+           font-size: 0.95rem;
+        }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">SuriAI</div>
+    <nav aria-label="Primary navigation">
+      <a href="index.html" tabindex="0">Home</a>
+      <a href="about.html" tabindex="0" aria-current="page">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>About SuriAI</h1>
+    <img
+      src="profile.jpg"
+      alt="Developer Photo"
+      class="developer-photo"
+      aria-hidden="true"
+    />
+    <p>
+      SuriAI is still under development as a trusted AI-powered website safety checker focused on protecting you from scams and fraudulent websites.
+    </p>
+    <p>
+      Developed with 💙 by <strong>Victor Tarra</strong>, a passionate Filipino Student dedicated to a better Philippines.
+    </p>
+  </main>
+
+<main>
+    <h1>Contact Me</h1>
+    <p style="font-size:1.08rem; color:#a8d8ff;"></p>
+        Have questions or feedback? Reach out to us!
+    </p>
+    <div style="background:rgba(79,143,247,0.13); border-radius:0.8rem; box-shadow:0 2px 12px #4f8ff744; padding:1.5rem 1.2rem; margin:1.2rem 0; display:inline-block; text-align:left; min-width:220px;">
+        <div style="margin-bottom:0.7rem;">
+            <span style="font-weight:600; color:#5bbcff;">Full Name:</span>
+            <span style="margin-left:0.4rem; color:#e3f2fd;">Victor Tarra</span>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+            <span style="font-weight:600; color:#5bbcff;">Email:</span>
+            <a href="mailto:tarra.sbca@gmail.com" style="color:#e3f2fd; text-decoration:underline; margin-left:0.4rem;">tarra.sbca@gmail.com</a>
+        </div>
+        <div>
+            <span style="font-weight:600; color:#5bbcff;">LinkedIn:</span>
+            <a href="https://www.linkedin.com/in/victor-tarra-2511092b4/" target="_blank" rel="noopener noreferrer" style="color:#e3f2fd; text-decoration:underline; margin-left:0.4rem;">Victor Tarra</a>
+        </div>
+    </div>
+</main>
+
+  <footer>
+    Made with 💙 by <a href="https://www.linkedin.com/in/victor-tarra-2511092b4/" target="_blank" rel="noopener noreferrer">Victor Tarra</a>
+  </footer>
+
+  <script>
+    // Helper to show popup
+    function showPopup(message) {
+        // Remove existing popup if any
+        const oldPopup = document.getElementById('custom-popup');
+        if (oldPopup) oldPopup.remove();
+
+        const popup = document.createElement('div');
+        popup.id = 'custom-popup';
+        popup.textContent = message;
+        popup.style.position = 'fixed';
+        popup.style.top = '30px';
+        popup.style.left = '50%';
+        popup.style.transform = 'translateX(-50%)';
+        popup.style.background = 'rgba(30,60,114,0.97)';
+        popup.style.color = '#fff';
+        popup.style.padding = '0.8rem 1.5rem';
+        popup.style.borderRadius = '0.6rem';
+        popup.style.boxShadow = '0 4px 20px rgba(0,0,0,0.25)';
+        popup.style.fontSize = '1rem';
+        popup.style.zIndex = 9999;
+        popup.style.fontFamily = "'Poppins',sans-serif";
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+            popup.style.transition = 'opacity 0.4s';
+            popup.style.opacity = '0';
+            setTimeout(() => popup.remove(), 400);
+        }, 1800);
+    }
+
+    // Disable right-click
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        showPopup('Right click is disabled');
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+    document.addEventListener('keydown', function (e) {
+        // F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            showPopup('F12 is disabled');
+            return false;
+        }
+        // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+            e.preventDefault();
+            showPopup('Ctrl+Shift+I is disabled');
+            return false;
+        }
+        // Ctrl+Shift+J
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+            e.preventDefault();
+            showPopup('Ctrl+Shift+J is disabled');
+            return false;
+        }
+        // Ctrl+U
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            showPopup('Ctrl+U is disabled');
+            return false;
+        }
+        // Ctrl+S
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            showPopup('Ctrl+S is disabled');
+            return false;
+        }
+    });
+</script>
+</body>
+</html>

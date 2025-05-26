@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuriAI - Advanced Website Safety Checker</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #4f8ff7;
+      --primary-dark: #1e3c72;
+      --primary-light: #80a9ff;
+      --safe: #4caf50;
+      --danger: #e53935;
+      --warning: #fbc02d;
+      --text-light: #f0f4ff;
+      --text-muted: #bbd3ff;
+      --bg-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
+      --card-bg: rgba(255, 255, 255, 0.1);
+      --card-border: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      background: rgba(30, 60, 114, 0.95);
+      backdrop-filter: saturate(180%) blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary-light);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1rem 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      width: 100%;
+      max-width: 500px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(79, 143, 247, 0.1) 0%, transparent 70%);
+      animation: rotate 15s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .icon-wrapper {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1.5rem;
+      background: radial-gradient(circle at center, var(--primary) 0%, var(--primary-dark) 80%);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 20px var(--primary);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px var(--primary);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px var(--primary-light);
+      }
+    }
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      fill: none;
+      stroke: var(--text-light);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--text-light), var(--primary-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(79, 143, 247, 0.3);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input[type="url"] {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      border-radius: 0.75rem;
+      border: 2px solid transparent;
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    input[type="url"]::placeholder {
+      color: rgba(205, 217, 255, 0.6);
+    }
+
+    input[type="url"]:focus {
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(79, 143, 247, 0.3);
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    .input-wrapper.error input {
+      border-color: #ff6b6b;
+    }
+
+    .input-wrapper.error .error-message {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 0.75rem;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(79, 143, 247, 0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(79, 143, 247, 0.7);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none !important;
+    }
+
+    /* Result */
+    .result {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      border-radius: 0.75rem;
+      font-weight: 500;
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+      text-align: left;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result.visible {
+      display: block;
+    }
+
+    .result.safe {
+      background: linear-gradient(135deg, var(--safe), #388e3c);
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.5);
+    }
+
+    .result.danger {
+      background: linear-gradient(135deg, var(--danger), #b71c1c);
+      box-shadow: 0 4px 15px rgba(229, 57, 53, 0.5);
+    }
+
+    .result.warning {
+      background: linear-gradient(135deg, var(--warning), #f57f17);
+      box-shadow: 0 4px 15px rgba(251, 192, 45, 0.5);
+    }
+
+    .result-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .result-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        padding: 0 1.5rem;
+        height: 60px;
+      }
+      
+      .logo {
+        font-size: 1.3rem;
+      }
+      
+      nav {
+        gap: 1rem;
+      }
+      
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+      SURI.AI
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="icon-wrapper">
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm-1 14v-4H8l4-5v4h3Z"/>
+        </svg>
+      </div>
+      
+      <h1>SuriAI Checker</h1>
+      <p class="subtitle">Verify if a website is safe to use or potentially malicious</p>
+      
+      <form id="checkForm">
+        <div class="form-group">
+          <label for="websiteInput">Enter Website URL</label>
+          <div class="input-wrapper">
+            <input 
+              type="url" 
+              id="websiteInput" 
+              placeholder="https://example.com" 
+              required
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <div class="error-message">Please enter a valid URL starting with http:// or https://</div>
+          </div>
+        </div>
+        
+        <button type="submit" id="checkButton">
+          <span id="buttonText">Analyze Website</span>
+          <div class="spinner" id="spinner"></div>
+        </button>
+      </form>
+      
+      <div id="result" class="result" role="alert" aria-live="polite">
+        <div class="result-title">
+          <svg class="result-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span id="resultTitle">Analysis Result</span>
+        </div>
+        <div id="resultContent">We'll analyze the website and show results here</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 SuriAI by Victor Tarra. All rights reserved.</p>
+  </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('checkForm');
+        const websiteInput = document.getElementById('websiteInput');
+        const inputWrapper = document.querySelector('.input-wrapper');
+        const errorMessage = document.querySelector('.error-message');
+        const checkButton = document.getElementById('checkButton');
+        const buttonText = document.getElementById('buttonText');
+        const spinner = document.getElementById('spinner');
+        const result = document.getElementById('result');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultContent = document.getElementById('resultContent');
+        const resultIcon = document.querySelector('.result-icon');
+
+        // URL validation pattern
+        const urlPattern = /^(https?:\/\/)[\da-z\.-]+\.[a-z\.]{2,}([\/\w \.-]*)*\/?$/i;
+
+        // Known safe domains
+        const safeDomains = [
+            'google.com', 'facebook.com', 'youtube.com', 'twitter.com', 'github.com', 'microsoft.com', 'apple.com', 'amazon.com', 'linkedin.com', 'wikipedia.org'
+        ];
+
+        // Validate URL on input
+        websiteInput.addEventListener('input', () => {
+            const url = websiteInput.value.trim();
+
+            if (url === '') {
+                inputWrapper.classList.remove('error');
+                checkButton.disabled = false;
+                return;
+            }
+
+            if (!urlPattern.test(url)) {
+                inputWrapper.classList.add('error');
+                checkButton.disabled = true;
+            } else {
+                inputWrapper.classList.remove('error');
+                checkButton.disabled = false;
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const url = websiteInput.value.trim();
+
+            // Show loading state
+            buttonText.textContent = 'Analyzing...';
+            spinner.style.display = 'block';
+            checkButton.disabled = true;
+
+            setTimeout(() => {
+                const analysisResult = analyzeWebsite(url);
+
+                // Hide loading state
+                buttonText.textContent = 'Analyze Website';
+                spinner.style.display = 'none';
+                checkButton.disabled = false;
+
+                // Show result
+                showResult(analysisResult);
+            }, 1500);
+        });
+
+        // Extract domain from URL
+        function getDomain(url) {
+            try {
+                return new URL(url).hostname.replace(/^www\./, '').toLowerCase();
+            } catch {
+                return '';
+            }
+        }
+
+        // Website analysis function
+        function analyzeWebsite(url) {
+            if (!url) {
+                return {
+                    status: 'warning',
+                    title: 'No URL Entered',
+                    message: 'Please enter a website URL to analyze.'
+                };
+            }
+
+            if (!urlPattern.test(url)) {
+                return {
+                    status: 'warning',
+                    title: 'Invalid URL',
+                    message: 'Please enter a valid URL starting with http:// or https://'
+                };
+            }
+
+            const domain = getDomain(url);
+
+            // List of suspicious keywords
+            const fraudKeywords = [
+                'scam', 'phish', 'malware', 'fraud', 'hack', 'steal', 'fake', 'login', 'verify', 'update', 'secure', 'account', 'paypal', 'banking', 'appleid', 'amazon', 'suspicious', 'alert', 'urgent', 'security', 'confirm', 'reset', 'unlock', 'support', 'refund', 'prize', 'winner', 'lottery'
+            ];
+
+            // If domain is in known safe list
+            if (safeDomains.includes(domain)) {
+                return {
+                    status: 'safe',
+                    title: 'Safe Website',
+                    message: 'This website is recognized as a legitimate and established site.'
+                };
+            }
+
+            // If domain contains suspicious keywords
+            const urlLower = url.toLowerCase();
+            for (const word of fraudKeywords) {
+                if (urlLower.includes(word)) {
+                    return {
+                        status: 'danger',
+                        title: 'Unsafe Website',
+                        message: 'This website appears to be fraudulent or unsafe. Avoid entering any sensitive information.'
+                    };
+                }
+            }
+
+            // If domain is not in safe list and not obviously unsafe, mark as unknown/new
+            return {
+                status: 'unknown',
+                title: 'Unknown Website',
+                message: 'This website is not recognized. Proceed with caution, especially if it is new or unfamiliar.'
+            };
+        }
+
+        // Display results
+        function showResult(data) {
+            let statusClass = data.status;
+            if (statusClass === 'unknown') statusClass = 'warning';
+            result.className = 'result visible ' + statusClass;
+            resultTitle.textContent = data.title;
+            resultContent.textContent = data.message;
+
+            // Set appropriate icon based on status
+            let iconPath;
+            if (data.status === 'safe') {
+                iconPath = 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z';
+            } else if (data.status === 'danger') {
+                iconPath = 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z';
+            } else {
+                // unknown/warning
+                iconPath = 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
+            }
+            // Update the <path> inside .result-icon
+            const iconSvg = resultIcon;
+            let path = iconSvg.querySelector('path');
+            if (!path) {
+                path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                iconSvg.appendChild(path);
+            }
+            path.setAttribute('d', iconPath);
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('stroke-linejoin', 'round');
+            path.setAttribute('stroke-width', '2');
+        }
+    });
+</script>
+
+<script>
+    // Helper to show popup
+    function showPopup(message) {
+        // Remove existing popup if any
+        const oldPopup = document.getElementById('custom-popup');
+        if (oldPopup) oldPopup.remove();
+
+        const popup = document.createElement('div');
+        popup.id = 'custom-popup';
+        popup.textContent = message;
+        popup.style.position = 'fixed';
+        popup.style.top = '30px';
+        popup.style.left = '50%';
+        popup.style.transform = 'translateX(-50%)';
+        popup.style.background = 'rgba(30,60,114,0.97)';
+        popup.style.color = '#fff';
+        popup.style.padding = '0.8rem 1.5rem';
+        popup.style.borderRadius = '0.6rem';
+        popup.style.boxShadow = '0 4px 20px rgba(0,0,0,0.25)';
+        popup.style.fontSize = '1rem';
+        popup.style.zIndex = 9999;
+        popup.style.fontFamily = "'Poppins',sans-serif";
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+            popup.style.transition = 'opacity 0.4s';
+            popup.style.opacity = '0';
+            setTimeout(() => popup.remove(), 400);
+        }, 1800);
+    }
+
+    // Disable right-click
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+        showPopup('Right click is disabled');
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+    document.addEventListener('keydown', function (e) {
+        // F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            showPopup('F12 is disabled');
+            return false;
+        }
+        // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+            e.preventDefault();
+            showPopup('Ctrl+Shift+I is disabled');
+            return false;
+        }
+        // Ctrl+Shift+J
+        if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+            e.preventDefault();
+            showPopup('Ctrl+Shift+J is disabled');
+            return false;
+        }
+        // Ctrl+U
+        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+            e.preventDefault();
+            showPopup('Ctrl+U is disabled');
+            return false;
+        }
+        // Ctrl+S
+        if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
+            e.preventDefault();
+            showPopup('Ctrl+S is disabled');
+            return false;
+        }
+    });
+</script>
+
+</body>
+</html>
