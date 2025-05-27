@@ -13,9 +13,12 @@ Note: This project is still in progress and may provide inaccurate information.
 
 🔗 Visit & Try Out Here: https://tarravictor.github.io/SuriAI/
 
+[Version 2.0 Coming Out Soon June 08, 2025]
+
 Contact
--------
+--------------------------------------
 Developer: Victor Tarra
+
 Email: tarra.sbca@gmail.com
 
 Thank you for checking it out!
