@@ -13,7 +13,12 @@ Note: This project is still in progress and may provide inaccurate information.
 
 🔗 Visit & Try Out Here: https://tarravictor.github.io/SuriAI/
 
-[Version 2.0 Coming Out Soon June 08, 2025]
+🚀 Version 2.0 is Here! 🚀
+
+I am excited to announce that Version 2.0 is officially out now! Get ready for new features, improvements, and an even better experience. Stay tuned and upgrade to enjoy all the latest enhancements!
+
+Thank you for your support! 🎉
+
 
 Contact
 --------------------------------------
