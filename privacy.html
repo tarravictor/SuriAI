@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suri AI – Privacy & Terms</title>
+  <style>
+    :root {
+      --dark-bg: #0b132b;
+      --card-bg: rgba(25, 42, 86, 0.8);
+      --accent: #1e90ff;
+      --text-light: #f0f3f7;
+      --loader-color: #00a8ff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(145deg, #0b132b, #1c2541);
+      color: var(--text-light);
+      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0b132b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 8px solid rgba(255, 255, 255, 0.1);
+      border-left-color: var(--loader-color);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 6rem auto 3rem;
+      padding: 3rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1s ease;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Scroll Down Arrow */
+    .scroll-down {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      fill: var(--accent);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(6px);
+      }
+      60% {
+        transform: translateY(3px);
+      }
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.4rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+
+    p, li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-top: 1rem;
+      color: #cfd9e0;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .btn {
+      text-decoration: none;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #468de4;
+      transform: translateY(-2px);
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #95a5c5;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 2rem;
+        margin: 3rem 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <script>
+    // Loader
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+    });
+
+    // Scroll to Terms & Conditions on arrow click
+    function scrollToTerms() {
+      document.getElementById('terms').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>
+      Privacy Policy
+      <svg onclick="scrollToTerms()" class="scroll-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="Scroll down to Terms & Conditions" role="button" tabindex="0">
+        <path d="M12 16l-6-6h12z"/>
+      </svg>
+    </h1>
+    <p><strong>Effective Date:</strong> June 1, 2025</p>
+    <p>
+      Suri AI – Advanced Website Safety Checker respects your privacy. This site is hosted using
+      <strong>GitHub Pages</strong>, a static web hosting platform provided by GitHub.
+    </p>
+
+    <h2>1. What We Collect</h2>
+    <p>We only collect <strong>IP addresses</strong> for security and anti-abuse monitoring. No other personal data is collected.</p>
+    <ul>
+      <li>No cookies</li>
+      <li>No login or registration</li>
+      <li>No storage of scanned site history</li>
+    </ul>
+
+    <h2>2. Purpose</h2>
+    <p>IP addresses are used to:</p>
+    <ul>
+      <li>Detect abuse and spam</li>
+      <li>Analyze traffic behavior</li>
+      <li>Enhance system security</li>
+    </ul>
+
+    <h2>3. Static Hosting</h2>
+    <p>
+      This site is fully static and served via GitHub’s CDN. There is no backend server or database collecting user data.
+    </p>
+
+    <h2>4. Third-Party Links</h2>
+    <p>Suri AI may link to external resources. We are not responsible for their content or privacy policies.</p>
+
+    <h2>5. Changes to Policy</h2>
+    <p>This policy may be updated at any time. Changes will be reflected on this page.</p>
+
+    <hr style="margin: 2rem 0; border: none; border-top: 1px solid #444;" />
+
+    <h1 id="terms">Terms & Conditions</h1>
+
+    <h2>1. Acceptable Use</h2>
+    <p>Suri AI is intended solely for legitimate security and website safety checks. Users must not misuse, abuse, or exploit this tool for any unlawful, harmful, or unauthorized purposes.</p>
+
+    <h2>2. Prohibited Activities</h2>
+    <p>Do not use Suri AI to conduct unauthorized scanning, breach security, disrupt services, or perform any activity that violates applicable laws or the rights of others.</p>
+
+    <h2>3. Disclaimer</h2>
+    <p>The tool is provided “as is” without warranties of any kind. While we strive for accuracy, results are not guaranteed and should not be solely relied upon for critical decisions.</p>
+
+    <h2>4. Limitation of Liability</h2>
+    <p>We disclaim all liability for damages, losses, or legal consequences arising from the use or misuse of Suri AI. Users assume full responsibility for their actions.</p>
+
+    <h2>5. Intellectual Property</h2>
+    <p>All content, branding, and intellectual property associated with Suri AI belong exclusively to its developers. Unauthorized copying, reproduction, or distribution is prohibited.</p>
+
+    <h2>6. Privacy and Data</h2>
+    <p>We only collect IP addresses for security and abuse prevention. No personal data is stored or shared. By using this tool, you consent to this limited data collection.</p>
+
+    <h2>7. Governing Law and Jurisdiction</h2>
+    <p>This service operates under the laws of the Philippines. Any disputes will be subject to the exclusive jurisdiction of Philippine courts.</p>
+
+    <h2>8. Changes to Terms</h2>
+    <p>We reserve the right to update these terms at any time without prior notice. Continued use of Suri AI constitutes acceptance of any changes.</p>
+
+    <div class="btn-group">
+      <a class="btn" href="mailto:tarra.sbca@gmail.com">📩 Contact Me</a>
+      <a class="btn" href="index.html">🔙 Back to Website</a>
+    </div>
+
+    <footer>
+      &copy; 2025 Suri AI. Hosted with 💙 via GitHub Pages.
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('keydown', function (e) {
+      // Block F12
+      if (e.key === 'F12') {
+        e.preventDefault();
+        alert('Viewing source is disabled.');
+      }
+
+      // Block Ctrl+Shift+I (DevTools)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
+        e.preventDefault();
+        alert('Viewing source is disabled.');
+      }
+
+      // Block Ctrl+Shift+J (DevTools Console)
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        alert('Viewing source is disabled.');
+      }
+
+      // Block Ctrl+U (View Source)
+      if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+        e.preventDefault();
+        alert('Viewing source is disabled.');
+      }
+
+      // Block Ctrl+S (Save Page)
+      if (e.ctrlKey && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        alert('Saving page is disabled.');
+      }
+    });
+
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      alert('Right-click is disabled.');
+    });
+  </script>
+</body>
+</html>
